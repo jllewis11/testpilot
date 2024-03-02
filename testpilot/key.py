@@ -3,6 +3,9 @@ from dotenv import load_dotenv, set_key
 from pathlib import Path
 import os
 
+from rich.console import Console
+
+console = Console()
 
 
 def setkey(service: str,api_key: str):
@@ -12,15 +15,14 @@ def setkey(service: str,api_key: str):
     dotenv_path = Path('.env')
     if not dotenv_path.exists():
         dotenv_path.touch()
-
     if service == "openai":
         set_key(dotenv_path.resolve(), "OPENAI_API_KEY", api_key)
-        typer.echo("OpenAI API key stored successfully.")
+        console.print(":white_check_mark:", "OpenAI API key stored successfully.")
     elif service == "togetherai":
         set_key(dotenv_path.resolve(), "TOGETHERAI_API_KEY", api_key)
-        typer.echo("TogetherAI API key stored successfully.")
+        console.print(":white_check_mark:", "TogetherAI API key stored successfully.")
     else:
-        typer.echo("Invalid service. Please choose 'openai' or 'togetherai'.")
+        console.print(":no_entry_sign:","Invalid service. Please choose 'openai' or 'togetherai'.")
 
 def viewkey():
     """
