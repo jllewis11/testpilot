@@ -16,6 +16,7 @@ together = "^0.2.11"
 openai = "^1.13.3"
 python-dotenv = "^1.0.1"
 pytest-cov = "^4.1.0"
+black = "^24.2.0"
 
 [build-system]
 requires = ["poetry-core"]
