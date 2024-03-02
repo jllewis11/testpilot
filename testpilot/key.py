@@ -8,11 +8,11 @@ from rich.console import Console
 console = Console()
 
 
-def setkey(service: str,api_key: str):
+def setkey(service: str, api_key: str):
     """
     Set the API key for the specified service.
     """
-    dotenv_path = Path('.env')
+    dotenv_path = Path(".env")
     if not dotenv_path.exists():
         dotenv_path.touch()
     if service == "openai":
@@ -22,7 +22,11 @@ def setkey(service: str,api_key: str):
         set_key(dotenv_path.resolve(), "TOGETHERAI_API_KEY", api_key)
         console.print(":white_check_mark:", "TogetherAI API key stored successfully.")
     else:
-        console.print(":no_entry_sign:","Invalid service. Please choose 'openai' or 'togetherai'.")
+        console.print(
+            ":no_entry_sign:",
+            "Invalid service. Please choose 'openai' or 'togetherai'.",
+        )
+
 
 def viewkey():
     """
@@ -49,11 +53,12 @@ def viewkey():
     else:
         typer.echo("No TogetherAI API key is set.")
 
+
 def removekey(service: str):
     """
     Remove the current API key for the specified service.
     """
-    dotenv_path = Path('.env')
+    dotenv_path = Path(".env")
     key_name = ""
 
     if service == "openai":

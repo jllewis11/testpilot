@@ -9,9 +9,11 @@ app.command()(setkey)
 app.command()(viewkey)
 app.command()(removekey)
 
+
 @app.command()
 def hello(name: str):
     typer.echo(f"Hello {name}")
+
 
 @app.command()
 def version():
