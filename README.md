@@ -16,7 +16,9 @@
 2. ```poetry shell```
 
 
+
 - `exit` to exit the virtual environment.
+- `black .` to format the code.
 
 ## Avaliable Commands
 
