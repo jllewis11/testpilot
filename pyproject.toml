@@ -14,6 +14,7 @@ typer = {extras = ["all"], version = "^0.9.0"}
 rich = "^13.7.1"
 together = "^0.2.11"
 openai = "^1.13.3"
+python-dotenv = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]
