@@ -9,3 +9,7 @@ def test_setkey():
     setkey("openai", example_key )
     openai_api_key = os.getenv("OPENAI_API_KEY")
     assert openai_api_key == example_key
+
+#def test_viewkey()
+
+#def test_removekey()
