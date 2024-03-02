@@ -13,3 +13,6 @@ app.command()(removekey)
 def hello(name: str):
     typer.echo(f"Hello {name}")
 
+@app.command()
+def version():
+    typer.echo("0.1.0")

@@ -3,3 +3,8 @@ dist/
 .env
 __pycache__/
 *.pyc
+
+#Pytest
+.pytest_cache/
+pytestdebug.log
+.coverage
