@@ -8,3 +8,4 @@ __pycache__/
 .pytest_cache/
 pytestdebug.log
 .coverage
+testpilot/__pycache__/main.cpython-311.pyc

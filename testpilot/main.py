@@ -1,6 +1,6 @@
 import typer
 from rich.console import Console
-from testpilot.key import setkey, viewkey, removekey
+from testpilot.cli.key import setkey, viewkey, removekey
 
 console = Console()
 app = typer.Typer()
