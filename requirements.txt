@@ -1,0 +1,7 @@
+typer
+rich
+together
+openai
+python-dotenv
+pytest-cov
+black
