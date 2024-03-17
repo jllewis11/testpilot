@@ -1,5 +1,22 @@
 from langchain_openai import OpenAI
 from langchain_together import Together
+from utils.connector import select_service
+import abc 
+
+class Agent:
+    def __init__(self, llm, model):
+        if llm is None:
+            llm = select_service()
+        self.llm = llm
+        if model is None:
+            if llm == "openai":
+                model = OpenAI(temperature=0.5)
+        self.model = model
+
+
+    @abc.abstractmethod
+    def parse_output(self, raw_result, parsed_output):
+        raise NotImplementedError()
 
 
 class OpenAICodeGenerator:

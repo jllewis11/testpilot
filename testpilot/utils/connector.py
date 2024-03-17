@@ -1,8 +1,6 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from langchain_openai import OpenAI
-from langchain_together import Together
 from rich.console import Console
 
 console = Console()
@@ -20,16 +18,16 @@ def select_service(service: str = ""):
         openai_api_key = os.getenv("OPENAI_API_KEY")
         togetherai_api_key = os.getenv("TOGETHERAI_API_KEY")
         if service == "openai":
-            return OpenAI(openai_api_key)
+            return "openai"
         elif service == "togetherai":
-            return Together(togetherai_api_key)
+            return "togetherai"
         else:
             if openai_api_key is not None:
                 console.print("[bold green]Defaulting to OpenAI[/bold green]")
-                return OpenAI(openai_api_key)
+                return "openai"
             elif togetherai_api_key is not None:
                 console.print("[bold green]Defaulting to TogetherAI[/bold green]")
-                return Together(togetherai_api_key)
+                return "togetherai"
             else:
                 try:
                     raise Exception(

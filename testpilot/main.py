@@ -9,8 +9,8 @@ app = typer.Typer()
 app.command()(setkey)
 app.command()(viewkey)
 app.command()(removekey)
-app.commmand()(generateOpenAI)
-app.command()(generateTogetherAI)
+# app.commmand()(generateOpenAI)
+# app.command()(generateTogetherAI)
 
 
 @app.command()
