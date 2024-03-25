@@ -1,7 +1,6 @@
 import typer
 from rich.console import Console
 from testpilot.cli.key import setkey, viewkey, removekey
-from testpilot.cli.generate import generateOpenAI, generateTogetherAI
 
 console = Console()
 app = typer.Typer()
