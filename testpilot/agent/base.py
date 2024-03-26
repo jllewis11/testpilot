@@ -1,6 +1,7 @@
 from langchain_openai import OpenAI
 from langchain_together import Together
-from utils.connector import select_service
+from ..utils.connector import select_service
+from langchain.chains import LLMChain
 import abc 
 
 class Agent:
@@ -32,21 +33,13 @@ class OpenAICodeGenerator:
 
         Here's the Python code:
         """
-        prompt_text = prompt_template.format(prompt=prompt)
+        llm_chain = LLMChain(prompt=prompt, llm=self.model)
+        output = llm_chain.run(prompt_template)
 
-        # Generate text with the OpenAI model
-        response = self.model.generate(prompt_text, max_tokens=2048)
-
-        # Parse the response and extract the generated code
-        # Initialize the sanitizer
-        sanitizer = Sanitizer()
-
-        # Assume "output" is the output from TogetherAI
-        output = sanitizer.sanitize_text(output)
-        parsed_output = parser.parse(response.text)
+        #TODO: Parse the response and extract the generated code
 
         # Return the generated code
-        return parsed_output
+        return output
     
 class TogetherCodeGenerator:
     def __init__(self, model: Together):
@@ -61,14 +54,9 @@ class TogetherCodeGenerator:
 
         Here's the Python code:
         """
-        prompt_text = prompt_template.format(prompt=prompt)
+        output = self.model.invoke(prompt_template)
 
-        # Generate text with the Together model
-        response = self.model.generate(prompt_text, max_tokens=2048)
+        # TODO: Parse the response and extract the generated code
 
-        # Parse the response and extract the generated code
-        parser = StrOutputParser()
-        parsed_output = parser.parse(response.text)
 
-        # Return the generated code
-        return parsed_output
+        return output
