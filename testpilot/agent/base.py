@@ -48,11 +48,12 @@ class TogetherCodeGenerator:
     def generate_code(self, prompt: str) -> str:
         # Set up the prompt for the Together model
         prompt_template = """
-        Given the following python program, write a Python test program based upon the requirement, program, and TDD principles.:
-
-        {prompt}
+        Given the following python code, write a Python test program based upon the requirement
+        Give only the python code as the output
 
         Here's the Python code:
+        {prompt}
+
         """
         output = self.model.invoke(prompt_template)
 

@@ -10,6 +10,7 @@ from rich.console import Console
 
 console = Console()
 
+
 def generator(service: str = ""):
     load_dotenv()
     llm = select_service(service)
@@ -19,18 +20,22 @@ def generator(service: str = ""):
         model = OpenAI(openai_api_key=key)
         agent = OpenAICodeGenerator(model)
 
-        #TODO: Where to pull for the generated code?
-        
+        # TODO: Where to pull for the generated code?
+
         code = agent.generate_code("def welcome():\n    return 'Hello, World!'")
         console.print(code)
     elif llm == "togetherai":
         key = os.getenv("TOGETHERAI_API_KEY")
-        model = Together(togetherai_api_key=key)
+        model = Together(
+            model="WizardLM/WizardCoder-15B-V1.0",
+            temperature=0.7,
+            max_tokens=500,
+            top_k=1,
+            together_api_key=key,
+        )
         agent = TogetherCodeGenerator(model)
 
         code = agent.generate_code("def welcome():\n    return 'Hello, World!'")
         console.print(code)
     else:
         raise Exception("Invalid service")
-        
-
