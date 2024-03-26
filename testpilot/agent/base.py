@@ -2,7 +2,8 @@ from langchain_openai import OpenAI
 from langchain_together import Together
 from ..utils.connector import select_service
 from langchain.chains import LLMChain
-import abc 
+import abc
+
 
 class Agent:
     def __init__(self, llm, model):
@@ -13,7 +14,6 @@ class Agent:
             if llm == "openai":
                 model = OpenAI(temperature=0.5)
         self.model = model
-
 
     @abc.abstractmethod
     def parse_output(self, raw_result, parsed_output):
@@ -36,11 +36,12 @@ class OpenAICodeGenerator:
         llm_chain = LLMChain(prompt=prompt, llm=self.model)
         output = llm_chain.run(prompt_template)
 
-        #TODO: Parse the response and extract the generated code
+        # TODO: Parse the response and extract the generated code
 
         # Return the generated code
         return output
-    
+
+
 class TogetherCodeGenerator:
     def __init__(self, model: Together):
         self.model = model
@@ -58,6 +59,5 @@ class TogetherCodeGenerator:
         output = self.model.invoke(prompt_template)
 
         # TODO: Parse the response and extract the generated code
-
 
         return output
