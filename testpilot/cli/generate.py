@@ -15,12 +15,13 @@ def generator(service: str = ""):
     load_dotenv()
     llm = select_service(service)
 
+    # TODO: Where to pull for the generated code?
+    # Replace the example code below with the code you want to generate with
+
     if llm == "openai":
         key = os.getenv("OPENAI_API_KEY")
         model = OpenAI(openai_api_key=key)
         agent = OpenAICodeGenerator(model)
-
-        # TODO: Where to pull for the generated code?
 
         code = agent.generate_code("def welcome():\n    return 'Hello, World!'")
         console.print(code)
