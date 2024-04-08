@@ -23,6 +23,7 @@
 ## Avaliable Commands
 
 - ```testpilot version```: View the current version of the CLI.
+- ```testpilot generator```: Generate the test case
 
 
 ### Key Management
