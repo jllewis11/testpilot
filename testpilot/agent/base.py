@@ -49,12 +49,11 @@ class TogetherCodeGenerator:
     def generate_code(self, prompt: str) -> str:
         # Set up the prompt for the Together model
         prompt_template = """
-        Given the following python code, write a Python test program based upon the requirement
-        Give only the python code as the output
+        Your task is to write one or more tests cases to check the correctness of a function that solves a programming problem. Check if the code might have any edge cases. Restrict to only the code given.
 
-        Here's the Python code:
-        {prompt}
-
+        You must write the comment "#Test case n:" on a separate line directly above each assert statement, where n represents the test case number, starting from 1 and increasing by one for each subsequent test case.
+        
+        Code: {prompt}
         """
         output = self.model.invoke(prompt_template)
 
