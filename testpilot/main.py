@@ -7,10 +7,25 @@ from testpilot.cli.generate import generator
 console = Console()
 app = typer.Typer()
 
-app.command()(setkey)
-app.command()(viewkey)
-app.command()(removekey)
-app.command()(generator)
+
+@app.command()
+def set_key():
+    setkey()
+
+
+@app.command()
+def view_key():
+    viewkey()
+
+
+@app.command()
+def remove_key():
+    removekey()
+
+
+@app.command()
+def generate(service: str = "", path: str = ""):
+    generator(service, path)
 
 
 @app.command()
