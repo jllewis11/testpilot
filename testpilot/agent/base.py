@@ -15,7 +15,6 @@ class Agent:
             llm = select_service()
         self.llm = llm
 
-
     @abc.abstractmethod
     def parse_output(self, raw_result, parsed_output):
         raise NotImplementedError()

@@ -1,10 +1,11 @@
 def welcome():
     return "Hello, World!"
 
+
 def fibonacci_of(n):
-     if n in {0, 1}:  # Base case
-         return n
-     return fibonacci_of(n - 1) + fibonacci_of(n - 2)  # Recursive case
+    if n in {0, 1}:  # Base case
+        return n
+    return fibonacci_of(n - 1) + fibonacci_of(n - 2)  # Recursive case
 
 
 def calculate_mean(grades):

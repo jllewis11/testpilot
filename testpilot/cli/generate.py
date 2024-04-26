@@ -41,6 +41,16 @@ def generator(service: str = "", path: Path = ""):
 
         code = agent.generate_code(code)
         console.print(code)
+
+        test_file = path.split(".py")[0]
+        test_import = "from " + test_file.split("/")[-1] + " import * \n"
+        test_file += "_test.py"
+
+        code = test_import + code
+
+        with open(test_file, "wb") as f:
+            f.write(code.encode("ascii"))
+
     elif llm == "togetherai":
         key = os.getenv("TOGETHERAI_API_KEY")
 
@@ -60,5 +70,11 @@ def generator(service: str = "", path: Path = ""):
 
         code = agent.generate_code(code)
         console.print(code)
+        test_file = path.split(".py")[0]
+        test_import = "from " + test_file + " import * \n"
+        test_file += "_test.py"
+
+        with open(test_file, "wb") as f:
+            f.write(code.encode("ascii"))
     else:
         raise Exception("Invalid service")
