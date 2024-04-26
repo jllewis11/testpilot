@@ -12,6 +12,9 @@ console = Console()
 
 
 def generator(service: str = "", path: Path = ""):
+    """
+    Generate code using the selected language model
+    """
     load_dotenv()
     llm = select_service(service)
 
