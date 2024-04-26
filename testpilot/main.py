@@ -9,8 +9,8 @@ app = typer.Typer()
 
 
 @app.command()
-def set_key():
-    setkey()
+def set_key(service: str, api_key: str):
+    setkey(service, api_key)
 
 
 @app.command()

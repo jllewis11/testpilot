@@ -1,7 +1,7 @@
 from ..agent.base import *
 from ..utils.connector import select_service
 from dotenv import load_dotenv
-from langchain_openai import OpenAI
+from openai import OpenAI
 from langchain_together import Together
 from pathlib import Path
 import os
@@ -17,6 +17,7 @@ def generator(service: str = "", path: Path = ""):
     """
     load_dotenv()
     llm = select_service(service)
+    console.print(f"Generating code using {llm}...")
 
     # TODO: Where to pull for the generated code?
     # Replace the example code below with the code you want to generate with
@@ -33,8 +34,9 @@ def generator(service: str = "", path: Path = ""):
         raise Exception("No path provided")
 
     if llm == "openai":
-        key = os.getenv("OPENAI_API_KEY")
-        model = OpenAI(openai_api_key=key)
+        openai_api_key = os.environ.get("OPENAI_API_KEY")
+        console.print(openai_api_key)
+        model = OpenAI(api_key=openai_api_key)
         agent = OpenAICodeGenerator(model)
 
         code = agent.generate_code(code)
@@ -48,9 +50,10 @@ def generator(service: str = "", path: Path = ""):
 
         model = Together(
             model="codellama/CodeLlama-7b-Python-hf",
-            temperature=0.7,
+            temperature=0.75,
             max_tokens=1024,
             top_k=1,
+            repetition_penalty=1,
             together_api_key=key,
         )
         agent = TogetherCodeGenerator(model)

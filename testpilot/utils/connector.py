@@ -22,10 +22,10 @@ def select_service(service: str = ""):
         elif service == "togetherai":
             return "togetherai"
         else:
-            if openai_api_key is not "":
+            if openai_api_key != "":
                 console.print("[bold green]Defaulting to OpenAI[/bold green]")
                 return "openai"
-            elif togetherai_api_key is not "":
+            elif togetherai_api_key != "":
                 console.print("[bold green]Defaulting to TogetherAI[/bold green]")
                 return "togetherai"
             else:

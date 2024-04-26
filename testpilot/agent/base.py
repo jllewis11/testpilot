@@ -3,6 +3,10 @@ from langchain_together import Together
 from ..utils.connector import select_service
 from langchain.chains import LLMChain
 import abc
+from rich.console import Console
+from openai import OpenAI
+
+console = Console()
 
 
 class Agent:
@@ -10,10 +14,7 @@ class Agent:
         if llm is None:
             llm = select_service()
         self.llm = llm
-        if model is None:
-            if llm == "openai":
-                model = OpenAI(temperature=0.5)
-        self.model = model
+
 
     @abc.abstractmethod
     def parse_output(self, raw_result, parsed_output):
@@ -26,20 +27,25 @@ class OpenAICodeGenerator:
 
     def generate_code(self, prompt: str) -> str:
         # Set up the prompt for the OpenAI model
+        console.print(prompt)
+        console.print(type(self.model))
         prompt_template = """
-        Given the following python program, write a Python test program based upon the requirement, program, and TDD principles.:
-
-        {prompt}
-
-        Here's the Python code:
+        You are an expert programmer that helps to review Python code for bugs.
+        Your task is to write 1 test to check the correctness of a function that solves a programming problem.
+        Write the test in pytest format.
+        Problem: {prompt}
+        
         """
-        llm_chain = LLMChain(prompt=prompt, llm=self.model)
-        output = llm_chain.run(prompt_template)
+        output = self.model.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": prompt_template.format(prompt=prompt)}
+            ],
+        )
 
         # TODO: Parse the response and extract the generated code
-
         # Return the generated code
-        return output
+        return output.choices[0].message
 
 
 class TogetherCodeGenerator:
@@ -48,12 +54,11 @@ class TogetherCodeGenerator:
 
     def generate_code(self, prompt: str) -> str:
         # Set up the prompt for the Together model
-        prompt_template = """
-        Your task is to write one or more tests cases to check the correctness of a function that solves a programming problem. Check if the code might have any edge cases. Restrict to only the code given.
-
-        You must write the comment "#Test case n:" on a separate line directly above each assert statement, where n represents the test case number, starting from 1 and increasing by one for each subsequent test case.
+        console.print(prompt)
+        prompt_template = f"""
+        write a unit test in pytest for this function:
+        Function: {prompt}
         
-        Code: {prompt}
         """
         output = self.model.invoke(prompt_template)
 
