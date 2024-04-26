@@ -45,7 +45,7 @@ class OpenAICodeGenerator:
 
         # TODO: Parse the response and extract the generated code
         # Return the generated code
-        return output.choices[0].message
+        return output.choices[0].message.content
 
 
 class TogetherCodeGenerator:
